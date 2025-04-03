@@ -1,0 +1,25 @@
+# List sequence in block style
+applications:
+- Cards
+- Loans
+- Accounts
+departments:
+  - Marketing
+  - Insurance
+  - Security
+
+#List sequence in flow style
+locations: [Hyderabad, Berlin, "Paris"]
+
+#Embeded/Nested sequence
+products:
+  - Accounts:
+    - Saving Account
+    - Current Account
+  - Loans:
+    - Home Loan
+    - Car Loan
+    - Personal Loan
+  - Cards:
+    - Credit Card
+    - Debit Card

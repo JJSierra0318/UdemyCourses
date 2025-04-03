@@ -1,0 +1,19 @@
+{
+  "name": "lockfile-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^10.3.0"
+  },
+  "dependencies": {
+    "browserslist": "^4.23.0",
+    "semver": "^7.6.0"
+  }
+}

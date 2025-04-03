@@ -1,0 +1,1 @@
+console.log("Start script uses this file by default (even if script is not specified in package.json)");

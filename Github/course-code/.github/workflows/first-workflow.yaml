@@ -1,0 +1,28 @@
+name: First Workflow
+on: [push]
+
+jobs:
+    run-shell-commands:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Echo a String
+              run: echo "Hello World"
+            - name: Multiline Command
+              run: |
+                node -v
+                npm -v
+    
+    parallel-job-macos:
+        runs-on: macos-latest
+        steps:
+            - name: View SW version
+              run: sw_vers
+
+    dependant-job:
+        runs-on: windows-latest
+        needs: run-shell-commands
+        steps:
+            - name: Echo a String
+              run: Write-Output "Windows String"
+            - name: Error
+              run: doesnotexists

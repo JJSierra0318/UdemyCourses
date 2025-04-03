@@ -1,0 +1,35 @@
+definitions:
+  days:
+    - weekday: &working
+        wakeup: 6:00 AM
+        activities:
+          - workout
+          - meetings
+          - work
+          - sleep
+        sleeptime: 10:00 PM
+    - weekend: &holiday
+        wakeup: 8:00 AM
+        activities:
+          - workout
+          - playing
+          - movies
+          - friends
+          - sleep
+        sleeptime: 12:00 AM
+
+schedules:
+  days:
+    weekday:
+      - monday: *working
+      - tuesday: *working
+      - wednesday: *working
+      - thursday: *working
+      - friday: #Override to add or alter specific value from anchor
+          <<: *working
+          sleeptime: 12:00 AM
+    weekend:
+      - saturday: *holiday
+      - sunday:
+          <<: *holiday
+          sleeptime: 10:00 PM

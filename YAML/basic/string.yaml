@@ -1,0 +1,16 @@
+organization: easzybank
+# can use |+ or |- to add o remove trailing blank lines
+about: |
+  EazyBank
+  is an
+  Bank based
+  application.
+# > Will ignore newline \n
+history: >
+  EazyBank
+  established
+  in 1989.
+# Special characters can be used within quotes
+products: "[Accounts] & {Cards} - <Loans>"
+# Save "Yes" and not true boolean
+hasMobileApp: "Yes"

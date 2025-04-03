@@ -1,0 +1,17 @@
+---
+# --- indicates the estart of the YAML file, optional
+# Explicit typing is optional
+YAML is a superset of JSON: !!bool true
+Pluto is a plantes: !!bool false
+negative: !!int -16
+zero: !!int 0
+positive: !!int 30
+negative-float: !!float -3.14
+zero-float: !!float 0.0
+sampleNumString: !!str 8.14
+sampleString: !!str eazybytes
+sampleDate: !!str 1989-06-16
+randomdate: !!timestamp 2001-12-15 2:59:43.10
+nullValue: !!null null
+# ... indicates the end of the YAML file, optional
+...

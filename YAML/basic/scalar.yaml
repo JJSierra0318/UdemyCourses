@@ -1,0 +1,17 @@
+#Scalar are the variables of yaml (key: value)
+name: eazybytes
+language: "Java"
+area: 'Online'
+major-version: 2
+minor-version: 0.5
+hex: 0x12d6 #Evaluates to 4822
+octal: 024432 #Evaluatesto 10522
+goodDay: true
+badDay: false
+niceWeekend: true
+boringWekkend: false
+positive-infinity: .inf #Evaluates to intinty
+negative-infinity: -.inf #Evaluates to negative infinty
+invalidNumber: .NAN #Not a Number
+null-value: null
+null-value1: ~
