@@ -1,0 +1,17 @@
+<label>Server Name</label>
+<!-- $server is a resever variable that captures data and info about the event -->
+<!-- [()] combines string interpolation and property binding, which results in two-way-binding -->
+<input type="text" class="form-control" [(ngModel)]="serverName">
+<p>{{ serverName }}</p>
+
+<!-- [] indicates property binding, in this case binding to the disabled property the variable -->
+<!-- () indicates event binding, in this case binding the click event -->
+<button class="btn-primary" [disabled]="!allowNewServer" (click)="onCreateServer()">Add Server</button>
+<!--Using property binding instead of string interpolation-->
+<!-- ngIf is a structure directive, renderes the paragraph conditionally -->
+<p *ngIf="serverCreated; else noServer">{{ serverCreationStatus }}</p>
+<!-- use a local reference for the 'else', and ng-template used to mark places in the dom -->
+<ng-template #noServer>
+    <p>No server has been created!</p>
+</ng-template>
+<app-server *ngFor="let server of servers"></app-server>
