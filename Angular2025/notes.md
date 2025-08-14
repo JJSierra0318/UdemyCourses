@@ -23,4 +23,10 @@
   }
 </ol>
 ```
-- Por medio de parámetros como $index es posible obtener información de la listo y ciclo, como el conteo, indice o determinar si es el primero, último, par o impar.
+- Por medio de parámetros como $index es posible obtener información de la listo y ciclo, como el conteo, índice o determinar si es el elemento es primero, último, par o impar.
+
+## Input / Output
+
+- Angular realiza la comunicación entre componentes por medio de inputs y outputs.
+- Los inputs establecen parámetros que los componentes requiren cuando son llamados. Se definen como `variable = input.required<type>()` (En caso de ser obligatorio), y este parámetro se envía una vez se llame el componente en el html, e.g. `<custom-component variable="name" />` (o `[variable]="name()"` en caso de ser variable o señal).
+- Los outputs se establecen como variables a través de los cuales los componentes emiten cambios. Se definen como `variable = output<type>()` y envía los eventos: `output.emit(newValue)`. Para recibir los outputs se definen como eventos cuando se declara el componente del que se recibe el evento: `<custom-component (variable)="method($event)" />`
