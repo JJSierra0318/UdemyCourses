@@ -1,11 +1,34 @@
-import { Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, signal } from "@angular/core";
 
 @Component({
-  template: `
-  <h1>Hola Mundo</h1>
-  <h2>Counter Page</h2>
-  `
+  templateUrl: './counter-page.html',
+  styles: `
+  button {
+    padding: 5px;
+    margin: 5px 10px;
+    width: 75px;
+  }
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CounterPage {
-  
+  counter = 10;
+  counterSignal = signal(10);
+
+  constructor() {
+    setInterval(() => {
+      this.counterSignal.update((v) => v + 1);
+    }, 1000);
+  }
+
+  increase(value: number) {
+    this.counter += value
+    this.counterSignal.update(current => current + value);
+
+  }
+
+  reset() {
+    this.counter = 10;
+    this.counterSignal.set(10);
+  }
 }
