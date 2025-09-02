@@ -30,3 +30,15 @@
 - Angular realiza la comunicación entre componentes por medio de inputs y outputs.
 - Los inputs establecen parámetros que los componentes requiren cuando son llamados. Se definen como `variable = input.required<type>()` (En caso de ser obligatorio), y este parámetro se envía una vez se llame el componente en el html, e.g. `<custom-component variable="name" />` (o `[variable]="name()"` en caso de ser variable o señal).
 - Los outputs se establecen como variables a través de los cuales los componentes emiten cambios. Se definen como `variable = output<type>()` y envía los eventos: `output.emit(newValue)`. Para recibir los outputs se definen como eventos cuando se declara el componente del que se recibe el evento: `<custom-component (variable)="method($event)" />`
+
+## Servicios
+
+- Escribir `a-services` sirve como Shortcut para un servicios template en Angular.
+- Los servicios funcionan como un Singleton (Siempre va a tener la misma instancia).
+- La forma recomendad de "instanciar" servicios en los componentes es como una propiedad:
+  `public myService = inject(MyService)`
+
+## Inyección de Dependencias
+
+- El patrón de inyección de dependencias separa la creación de la clase de su uso.
+- En vez de crear o instancias la clase, lo recibes de alguien más (un "contenedor" o "fábrica").
