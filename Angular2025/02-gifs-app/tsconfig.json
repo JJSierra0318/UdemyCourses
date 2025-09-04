@@ -3,6 +3,11 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    // Se pueden evitar importaciones con nombre muy largos por medio de path alias
+    "baseUrl": ".",
+    "paths": {
+      "@environments/*": ["src/environments/*"]
+    },
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,
