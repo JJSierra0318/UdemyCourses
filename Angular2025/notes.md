@@ -53,3 +53,9 @@
 ## Effect
 
 - `effect(() => {})` es una herramienta de Angular que se ejecuta cada vez que cualquier señal que tenga dentro reciba un cambio.
+
+## HTTP
+
+- Angular ofrece llamados HTTP por medio de HttpClient, que se puede considerar como algo más poderoso al fetch normal.
+- Las peticiones Http retornan un observable, por ende es necesario suscribirse a la petición para recibir la respuesta.
+- HttpClient se inyecta en el servicio (`private http = inject(HttpClient)`) y se debe proveer en el app.config.ts (`provideHttpClient(withFetch())`)
