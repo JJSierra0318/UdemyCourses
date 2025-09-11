@@ -59,3 +59,9 @@
 - Angular ofrece llamados HTTP por medio de HttpClient, que se puede considerar como algo más poderoso al fetch normal.
 - Las peticiones Http retornan un observable, por ende es necesario suscribirse a la petición para recibir la respuesta.
 - HttpClient se inyecta en el servicio (`private http = inject(HttpClient)`) y se debe proveer en el app.config.ts (`provideHttpClient(withFetch())`)
+
+## RxJS
+
+- Por medio de `.pipe()` podemos "interceptar" y modificar lo que pasa a través de un observable, todas los operadores que definamos dentro del pipe se ejecutan antes de emitir el resultado.
+- `tap()` es un operador de RxJS que permite hacer efectos secundarios.
+- `map()` es un operador que permite transformar los datos del observable.
