@@ -71,3 +71,7 @@
 - Por medio de `.pipe()` podemos "interceptar" y modificar lo que pasa a través de un observable, todas los operadores que definamos dentro del pipe se ejecutan antes de emitir el resultado.
 - `tap()` es un operador de RxJS que permite hacer efectos secundarios.
 - `map()` es un operador que permite transformar los datos del observable.
+
+## ViewCHild
+
+- Es posible tomar referencias del HTML template por medio de viewChild() y viewChildren(), que reciben una referencia, id, clase, etc... que referencia el componente HTML
