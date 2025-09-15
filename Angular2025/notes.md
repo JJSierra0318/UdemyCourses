@@ -20,6 +20,12 @@
 }
 ```
 
+### Rutas dinámicas
+
+- Para rutas dinámicas se pueden usar parámetros las URLs: `path: 'route/:query'`
+- Los parámetros se reciben con una inyección de la ActiveRoute, que funciona como un observable: `query = inject(ActivatedRoute).params.subscribe()`
+- Un observable puede transformarse en una señal con: `query = toSignal(inject(ActivatedRoute.params))`, lo que permite manejar la información de manera más sencillas, y en caso de necesitar un parámetro específico, se pueden usar funciones como el Pipe.
+
 ## Control Flow
 
 - A partir de Angular 17 se cambió el uso a `@for` y `@if` dentro de los componentes HTML para ciclos y condicionales. Por ejemplo:
