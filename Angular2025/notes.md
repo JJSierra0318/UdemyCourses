@@ -9,7 +9,7 @@
 
 ## Rutas
 
-- Para generar rutas en Angular se usar el parámetro routerLink (e.g. `<a routerLink="/">Home</a>`) y se añade una importación en el component de RouterLink.
+- Para generar redirecciones de rutas en Angular se usar el parámetro routerLink (e.g. `<a routerLink="/">Home</a>`) y se añade una importación en el component de RouterLink.
 - RouterLinkActive permite agregar una clase a un componente HTML si la ruta se encuentra activa o es la que está viendo el usuario.
 - `[routerLinkActiveOptions]="{ exact: true }` Hace que routerLink solo aplique si la ruta está exacta y no esté solo un fragmento.
 - Al momento de desplegar la aplicación, hay que tener en cuenta que Angular era quien administraba las rutas, si el servidor no tiene las configuraciones necesarias, la aplicación no va a ser capaz de resolver rutas que no pasen por el "root" ("/"), para eso se usa puede agregar una configuración al `app.config.ts`:
