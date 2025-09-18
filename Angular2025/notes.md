@@ -19,6 +19,9 @@
   useClass: HashLocationStrategy,
 }
 ```
+- En los archivos the rutas, es posible especificar un componente para que se cargue de manera perezosa en vez de llamarlo directamente: `component: () => Component.then(m => m.routes)`, el .then se puede omitir si en el archivo del componete o rutas siendo importado, se incluye un export default.
+- El lazy loading hace que el componente solo se cargue cuando el usuario navegue a esa ruta.
+- Se pueden usar archivos de rutas internos, los cuales el app.routes.ts llamaría por medio de `loadChildren` de la misma manera que llamaría un documento, usando la importación de las rutas internas en vez del nombre del componente.
 
 ### Rutas dinámicas
 
