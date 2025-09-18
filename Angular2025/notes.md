@@ -5,7 +5,7 @@
 - Las señales envían actualizaciones solo a los componentes donde ocurrió un cambio, en vez de actualizar toda la página o el componente o manejar funciones de verificación de cambios. (Introducido en Angular despúes de la versión 18).
 - Anteriormente se usaba ZoneJS (una librería externa) para el ciclo de detección de cambios, pero tiene problemas con el `async-await` y es una librería relativamente pesada.
 - Añadir `changeDetection: ChangeDetectionStrategy.OnPush` a los componentes es una forma de volverlo Zoneless. De esta forma cualquier actualización que no se produzca por una señal no se va a ver reflejada en el DOM.
-- Las señales de solo lectura (`compute()`) solo se actualizan cuando sus dependencias (siendo otras señales) cambien.
+- Las señales de solo lectura (`computed()`) solo se actualizan cuando sus dependencias (siendo otras señales) cambien.
 
 ## Rutas
 
@@ -19,6 +19,12 @@
   useClass: HashLocationStrategy,
 }
 ```
+
+### Rutas dinámicas
+
+- Para rutas dinámicas se pueden usar parámetros las URLs: `path: 'route/:query'`
+- Los parámetros se reciben con una inyección de la ActiveRoute, que funciona como un observable: `query = inject(ActivatedRoute).params.subscribe()`
+- Un observable puede transformarse en una señal con: `query = toSignal(inject(ActivatedRoute.params))`, lo que permite manejar la información de manera más sencillas, y en caso de necesitar un parámetro específico, se pueden usar funciones como el Pipe.
 
 ## Control Flow
 
@@ -59,3 +65,13 @@
 - Angular ofrece llamados HTTP por medio de HttpClient, que se puede considerar como algo más poderoso al fetch normal.
 - Las peticiones Http retornan un observable, por ende es necesario suscribirse a la petición para recibir la respuesta.
 - HttpClient se inyecta en el servicio (`private http = inject(HttpClient)`) y se debe proveer en el app.config.ts (`provideHttpClient(withFetch())`)
+
+## RxJS
+
+- Por medio de `.pipe()` podemos "interceptar" y modificar lo que pasa a través de un observable, todas los operadores que definamos dentro del pipe se ejecutan antes de emitir el resultado.
+- `tap()` es un operador de RxJS que permite hacer efectos secundarios.
+- `map()` es un operador que permite transformar los datos del observable.
+
+## ViewCHild
+
+- Es posible tomar referencias del HTML template por medio de viewChild() y viewChildren(), que reciben una referencia, id, clase, etc... que referencia el componente HTML
