@@ -13,7 +13,7 @@
 - RouterLinkActive permite agregar una clase a un componente HTML si la ruta se encuentra activa o es la que está viendo el usuario.
 - `[routerLinkActiveOptions]="{ exact: true }` Hace que routerLink solo aplique si la ruta está exacta y no esté solo un fragmento.
 - Al momento de desplegar la aplicación, hay que tener en cuenta que Angular era quien administraba las rutas, si el servidor no tiene las configuraciones necesarias, la aplicación no va a ser capaz de resolver rutas que no pasen por el "root" ("/"), para eso se usa puede agregar una configuración al `app.config.ts`:
-```
+```js
 {
   provide: LocationStrategy,
   useClass: HashLocationStrategy,
@@ -32,7 +32,7 @@
 ## Control Flow
 
 - A partir de Angular 17 se cambió el uso a `@for` y `@if` dentro de los componentes HTML para ciclos y condicionales. Por ejemplo:
-```
+```js
 <ol>
   @for (item of items(); track item.id) {
     <li>{{ item.name }}</li>
@@ -74,7 +74,26 @@
 - Por medio de `.pipe()` podemos "interceptar" y modificar lo que pasa a través de un observable, todas los operadores que definamos dentro del pipe se ejecutan antes de emitir el resultado.
 - `tap()` es un operador de RxJS que permite hacer efectos secundarios.
 - `map()` es un operador que permite transformar los datos del observable.
+- `firstValueFrom()` Toma el primer valor de un observable y lo vuelve una promesa.
 
 ## ViewCHild
 
 - Es posible tomar referencias del HTML template por medio de viewChild() y viewChildren(), que reciben una referencia, id, clase, etc... que referencia el componente HTML
+
+## Resources
+- ***Angular19+ experimental feature***
+- Es una forma de aplicar señales con datos que se manejan de manera asíncrona, como conseguir datos de un servidor.
+- Un resource tiene dos componentes principales en su objeto de parámetro:
+  - **params:** similar a computed, emite un valor de parámetro cada vez que las señales definidas dentro del param cambien.
+  - **loader:** una función asíncrona que tiene asignado un estado. el resource llama al loader cada vez que params produce un nuevo valor.
+```js
+const userResource = resource({
+  // Define a reactive computation.
+  // The params value recomputes whenever any read signals change.
+  params: () => ({id: userId()}),
+  // Define an async loader that retrieves data.
+  // The resource calls this function every time the `params` value changes.
+  loader: ({params}) => fetchUser(params),
+});
+```
+- Podemos acceder a información sobre el recurso por medio de varias señales innatas al mismo, algunas de estas son: value, hasValue, error, isLoading, status.

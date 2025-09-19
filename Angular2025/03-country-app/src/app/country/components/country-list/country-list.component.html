@@ -5,6 +5,7 @@
         <th>#</th>
         <th>Ícono</th>
         <th>Bandera</th>
+        <th>Nombre</th>
         <th>Capital</th>
         <th>Población</th>
       </tr>
@@ -19,9 +20,13 @@
         </td>
         <td>{{ country.name }}</td>
         <td>{{ country.capital }}</td>
-        <td>{{ country.population }}</td>
         <td>
-          <a class="link-primary cursor-pointer">Más información</a>
+          <span class="badge badge-secondary">
+            {{ country.population | number}}
+          </span>
+        </td>
+        <td>
+          <a [routerLink]="['/country/by', country.cca2]" class="link-primary cursor-pointer">Más información</a>
         </td>
       </tr>
       }
