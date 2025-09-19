@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { RESTCountry } from '../interfaces/rest-countries.interface';
-import { catchError, map, throwError } from 'rxjs';
+import { catchError, delay, map, throwError } from 'rxjs';
 import { CountryMapper } from '../mappers/country.mapper';
 
 const API_URL = 'https://restcountries.com/v3.1'
@@ -17,6 +17,7 @@ export class CountryService {
 
     return this.http.get<RESTCountry[]>(`${API_URL}/capital/${query}`)
       .pipe(
+        delay(500),
         map((res) => CountryMapper.mapRestCountryArrayToCountryArray(res)),
         catchError(error => {
           console.log(error);
@@ -30,6 +31,7 @@ export class CountryService {
 
     return this.http.get<RESTCountry[]>(`${API_URL}/name/${query}`)
       .pipe(
+        delay(500),
         map((res) => CountryMapper.mapRestCountryArrayToCountryArray(res)),
         catchError(error => {
           console.log(error);

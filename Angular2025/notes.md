@@ -97,3 +97,8 @@ const userResource = resource({
 });
 ```
 - Podemos acceder a información sobre el recurso por medio de varias señales innatas al mismo, algunas de estas son: value, hasValue, error, isLoading, status.
+
+## RxResources
+- ***Angular19+ experimental feature***
+- Similar a los resources, la principal diferencia es que ahora trabaja con observables y no con promesas, gracias a esto el loader ya no haría uso de async-await.
+- Solo hay que ajustar los returns que no sean observables, para eso se puede usar la función `of()` que retorna un observable con lo que tenga dentro.
