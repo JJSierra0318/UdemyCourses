@@ -62,6 +62,16 @@
 ## Effect
 
 - `effect(() => {})` es una herramienta de Angular que se ejecuta cada vez que cualquier señal que tenga dentro reciba un cambio.
+- Recibe como parámetro una función que se ejectua cada vez que el componente del efecto se destruye, o cada vez que el efecto se vuelve a activar.
+```js
+debounceEffect = effect((onCleanup) => {
+    const timeout = setTimeout(() => {
+      // Do something here
+    }, 500);
+    // Resets / cleans the timeout
+    onCleanup(() => clearTimeout(timeout))
+  })
+```
 
 ## HTTP
 

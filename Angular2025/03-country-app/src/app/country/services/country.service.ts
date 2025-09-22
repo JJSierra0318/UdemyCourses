@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { RESTCountry } from '../interfaces/rest-countries.interface';
-import { catchError, delay, map, throwError } from 'rxjs';
+import { catchError, delay, map, of, throwError } from 'rxjs';
 import { CountryMapper } from '../mappers/country.mapper';
 
 const API_URL = 'https://restcountries.com/v3.1'
@@ -17,7 +17,7 @@ export class CountryService {
 
     return this.http.get<RESTCountry[]>(`${API_URL}/capital/${query}`)
       .pipe(
-        delay(500),
+        delay(200),
         map((res) => CountryMapper.mapRestCountryArrayToCountryArray(res)),
         catchError(error => {
           console.log(error);
@@ -31,11 +31,24 @@ export class CountryService {
 
     return this.http.get<RESTCountry[]>(`${API_URL}/name/${query}`)
       .pipe(
-        delay(500),
+        delay(200),
         map((res) => CountryMapper.mapRestCountryArrayToCountryArray(res)),
         catchError(error => {
           console.log(error);
           return throwError(() => new Error(`No se pudo obtener países con el query: ${query}`))
+        })
+      )
+  }
+
+  searchCountryByAlphaCode(code: string) {
+    return this.http.get<RESTCountry[]>(`${API_URL}/alpha/${code}`)
+      .pipe(
+        delay(200),
+        map((res) => CountryMapper.mapRestCountryArrayToCountryArray(res)),
+        map(countries => countries.at(0)),
+        catchError(error => {
+          console.log(error);
+          return throwError(() => new Error(`No se pudo obtener países con el código: ${code}`))
         })
       )
   }
