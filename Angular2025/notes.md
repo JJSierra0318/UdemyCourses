@@ -6,6 +6,7 @@
 - Anteriormente se usaba ZoneJS (una librería externa) para el ciclo de detección de cambios, pero tiene problemas con el `async-await` y es una librería relativamente pesada.
 - Añadir `changeDetection: ChangeDetectionStrategy.OnPush` a los componentes es una forma de volverlo Zoneless. De esta forma cualquier actualización que no se produzca por una señal no se va a ver reflejada en el DOM.
 - Las señales de solo lectura (`computed()`) solo se actualizan cuando sus dependencias (siendo otras señales) cambien.
+- `linkedSignal` funciona similar a una señal, con la diferencia que esta se usa cuando se debe inicializar una señal con un valor computarizado, (una función, el valor de un input o el valor de otra señal) `inputValue = linkedSignal<string>(() => this.initialValue())`
 
 ## Rutas
 
@@ -112,3 +113,6 @@ const userResource = resource({
 - ***Angular19+ experimental feature***
 - Similar a los resources, la principal diferencia es que ahora trabaja con observables y no con promesas, gracias a esto el loader ya no haría uso de async-await.
 - Solo hay que ajustar los returns que no sean observables, para eso se puede usar la función `of()` que retorna un observable con lo que tenga dentro.
+
+## Snapshot
+- Se usan snapshots, por ejemplo para las queryParams, cuando no es necesario tener reactividad cuando se realice un cambio.
