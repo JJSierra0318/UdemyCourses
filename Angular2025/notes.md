@@ -116,3 +116,7 @@ const userResource = resource({
 
 ## Snapshot
 - Se usan snapshots, por ejemplo para las queryParams, cuando no es necesario tener reactividad cuando se realice un cambio.
+
+## Pipes
+- Angular permite modificar datos en los templates de HTML por medio de pipes (`|`), estás transformaciones son solo visuales, y se debe importar el Pipe usado dentro del componente.
+- Cada pipe puede recibir varios parámetros para modificar la transformación, por ejemplo, el siguiente pipe modifica el número a un formato de dinero, con dólares canadienses, que no agregue el símbolo "CA" y que redondee a 2 decimales: `{{ totalSales() | currency : 'CAD' : 'symbol-narrow' : '1.2-2' }}`
