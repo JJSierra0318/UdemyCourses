@@ -54,6 +54,16 @@
 - Los servicios funcionan como un Singleton (Siempre va a tener la misma instancia).
 - La forma recomendad de "instanciar" servicios en los componentes es como una propiedad:
   `public myService = inject(MyService)`
+- Es posible inyectar servicios dentro del `app.config.ts` para computar valores, como el idioma por medio de:
+```js
+{
+  provide: LOCALE_ID,
+  deps: [LocaleService],
+  useFactory: (localeService: LocaleService) => localeService.getLocale
+}
+```
+- Cuando se inyecta un servicio, y un método por medio de useFactory, solo se ejecuta cada vez que se recargue la página, si se quieren reflejar los cambios es necesario agregar un `window.location.reload()` para que se reflejen los cambios.
+- Si no se quiere recargar la página, se necesitaría usar librerías externas, con la desventaja de tener que cargar todos los idiomas disponibles en runtime para el ejemplo dado.
 
 ## Inyección de Dependencias
 
