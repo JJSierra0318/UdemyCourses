@@ -70,12 +70,10 @@ export default class UncommonPageComponent {
   promiseValue: Promise<string> = new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve('Tenemos data en la promesa.')
-      console.log('Promesa finalizada');
     }, 3000)
   })
 
   myObservableTimer = interval(2000).pipe(
     map((value) => value + 1),
-    tap( (value) => console.log('tap:', value))
   )
 }

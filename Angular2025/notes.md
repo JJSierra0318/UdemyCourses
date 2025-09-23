@@ -130,6 +130,7 @@ const userResource = resource({
 ## Pipes
 - Angular permite modificar datos en los templates de HTML por medio de pipes (`|`), estás transformaciones son solo visuales, y se debe importar el Pipe usado dentro del componente.
 - Cada pipe puede recibir varios parámetros para modificar la transformación, por ejemplo, el siguiente pipe modifica el número a un formato de dinero, con dólares canadienses, que no agregue el símbolo "CA" y que redondee a 2 decimales: `{{ totalSales() | currency : 'CAD' : 'symbol-narrow' : '1.2-2' }}`
+- Los pipes se pueden usar tanto dentro de componentes HTML como en expresiones computadas y en elemento "if" y "for"
 - Los pipes de internacionalización permiten cambiar dinámicamente texto según varios parámetros como el género o cantidad, al momento de usarse deben de recibir un map o señal con las opciones según los parámetros:
 
 - #### i18nSelectPipe:
