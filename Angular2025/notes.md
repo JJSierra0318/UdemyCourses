@@ -130,3 +130,37 @@ const userResource = resource({
 ## Pipes
 - Angular permite modificar datos en los templates de HTML por medio de pipes (`|`), estás transformaciones son solo visuales, y se debe importar el Pipe usado dentro del componente.
 - Cada pipe puede recibir varios parámetros para modificar la transformación, por ejemplo, el siguiente pipe modifica el número a un formato de dinero, con dólares canadienses, que no agregue el símbolo "CA" y que redondee a 2 decimales: `{{ totalSales() | currency : 'CAD' : 'symbol-narrow' : '1.2-2' }}`
+- Los pipes de internacionalización permiten cambiar dinámicamente texto según varios parámetros como el género o cantidad, al momento de usarse deben de recibir un map o señal con las opciones según los parámetros:
+
+- #### i18nSelectPipe:
+```js
+  invitationMap = {
+      male: 'invitarlo',
+      female: 'invitarla'
+    }
+```
+``` html
+  <p>Saludos {{ client().name }}, es un placer {{ client().gender | i18nSelect : invitationMap }} a nuestro evento</p>
+```
+
+- #### i18nPluralPipe:
+```js
+  clientsMap = signal({
+    '=0': 'no tenemos ningún cliente esperando',
+    '=1': 'tenemos un cliente esperando',
+    other: 'tenemos # clientes esperando',
+  })
+```
+``` html
+  <p>Actualmente {{ clients().length | i18nPlural : clientsMap() }}</p>
+```
+
+## Content Projection
+- Es posible enviar otros componente HTML o de Angular dentro de otros componentes por medio del \<ng-content\>:
+```html
+<custom-component>
+  <h1>Hello</h1>
+  <p>Text</p>
+</custom-component>  
+```
+- En el ejemplo anterior, el `h1` y el `p` se van a encontrar poder visualizar en el custom-component si a este último se le agrega un \<ng-content\> en su HTML.

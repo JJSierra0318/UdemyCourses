@@ -13,7 +13,7 @@ export const routes: Routes = [
   },
   {
     path: 'uncommon',
-    title: 'Numbers no tan comunes',
+    title: 'Pipes no tan comunes',
     loadComponent: () => import('./pages/uncommon-page/uncommon-page.component'),
   },
   {
