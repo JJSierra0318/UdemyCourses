@@ -188,6 +188,7 @@ private fb = inject(FormBuilder);
     inStorage: [0],
   })
 ```
+- Para manejar el envío  del formulario se recomienda usar el `(ngSubmit)` en vez del onSubmit o un método dentro del botón.
 
 ### Validaciones
 - Angular trae algunas validaciones por defecto del la función de `Validators`, que pueden se agregados a cada propiedad del formulario:
@@ -197,3 +198,4 @@ price: [0, [Validators.required, Validators.min(10)]],
 inStorage: [0, [Validators.required, Validators.min(0)]],
 ```
 - Los errores generados por las validaciones pueden ser accedidos por medio de `myForm.controls.*property*.errors`
+- Sí se desea generar los errores en el momento en que se presione el botón de submit se puede usar la expresión `this.myForm.markAllAsTouched()`.

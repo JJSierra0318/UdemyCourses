@@ -1,6 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormUtils } from '../../../utils/form-utils';
 
 @Component({
   selector: 'app-basic-page',
@@ -10,6 +11,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 export class BasicPageComponent {
 
   private fb = inject(FormBuilder);
+  formUtils = FormUtils;
 
   myForm: FormGroup = this.fb.group({
     // property: [initialValue, syncValidators, asyncValidators]
@@ -24,11 +26,11 @@ export class BasicPageComponent {
     inStorage: new FormControl(0),
   }) */
 
-  isValidField(fieldName: string): boolean | null {
-    return !!this.myForm.controls[fieldName].errors
-  }
+  /* isValidField(fieldName: string): boolean | null {
+    return (this.myForm.controls[fieldName].errors && this.myForm.controls[fieldName].touched)
+  } */
 
-  getFieldError(fieldName: string): string | null {
+  /* getFieldError(fieldName: string): string | null {
     if (!this.myForm.controls[fieldName]) return null;
     const errors = this.myForm.controls[fieldName].errors || {};
 
@@ -45,5 +47,16 @@ export class BasicPageComponent {
       }
     }
     return null
+  } */
+
+  onSubmit() {
+    if (this.myForm.invalid) {
+      this.myForm.markAllAsTouched()
+      return
+    }
+    this.myForm.reset({
+      price: 0,
+      inStorage: 0,
+    })
   }
 }
