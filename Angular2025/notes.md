@@ -181,10 +181,19 @@ myForm = new FormGroup({
 ```js
 private fb = inject(FormBuilder);
 
-  myForm = this.fb.group({
+  myForm: FormGroup = this.fb.group({
     // property: [initialValue, syncValidators, asyncValidators]
     name: [''],
     price: [0],
     inStorage: [0],
   })
 ```
+
+### Validaciones
+- Angular trae algunas validaciones por defecto del la función de `Validators`, que pueden se agregados a cada propiedad del formulario:
+```js
+name: ['', [Validators.required, Validators.minLength(3)]],
+price: [0, [Validators.required, Validators.min(10)]],
+inStorage: [0, [Validators.required, Validators.min(0)]],
+```
+- Los errores generados por las validaciones pueden ser accedidos por medio de `myForm.controls.*property*.errors`
