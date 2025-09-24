@@ -165,3 +165,26 @@ const userResource = resource({
 </custom-component>  
 ```
 - En el ejemplo anterior, el `h1` y el `p` se van a encontrar poder visualizar en el custom-component si a este último se le agrega un \<ng-content\> en su HTML.
+
+## Forms
+- Los formularios en Angular se puede usar mediante el paquete de ReactiveFormsModule, con este primero representamos la estructura del formulario dentro de nuestro código:
+```js
+myForm = new FormGroup({
+    name: new FormControl(''),
+    price: new FormControl(0),
+    inStorage: new FormControl(0),
+  })
+```
+- De aquí, debemos pasarle las referencias al formulario dentro del HTML: `<form [formGroup]="myForm">` y a cada input: `<input formControlName="price">`
+- Una vez hecho esto, tenemos acceso a información del formulario por medio de la variable declarada, como `.valid`, `.pristine`, `.touched`, `.value` y `.controls.*property*.value`
+- Otra forma de inicializar el formulario desde el componente es haciendo uso del `FormBuilder`, que puede resultar más fácil de manejar y entender que el FormGroup y funciona de la misma manera:
+```js
+private fb = inject(FormBuilder);
+
+  myForm = this.fb.group({
+    // property: [initialValue, syncValidators, asyncValidators]
+    name: [''],
+    price: [0],
+    inStorage: [0],
+  })
+```
