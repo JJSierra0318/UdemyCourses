@@ -189,6 +189,7 @@ private fb = inject(FormBuilder);
   })
 ```
 - Para manejar el envío  del formulario se recomienda usar el `(ngSubmit)` en vez del onSubmit o un método dentro del botón.
+- Para evitar hacer submit del formulario al presionar enter en un input se puede usar: `(keydown.enter)="$event.preventDefault()`
 
 ### Validaciones
 - Angular trae algunas validaciones por defecto del la función de `Validators`, que pueden se agregados a cada propiedad del formulario:
