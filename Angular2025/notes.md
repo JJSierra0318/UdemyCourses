@@ -96,6 +96,7 @@ debounceEffect = effect((onCleanup) => {
 - `tap()` es un operador de RxJS que permite hacer efectos secundarios.
 - `map()` es un operador que permite transformar los datos del observable.
 - `firstValueFrom()` Toma el primer valor de un observable y lo vuelve una promesa.
+- `switchMap()` Permite tranformar el observable un otro observable completamente diferente, (como el resultado de un http request).
 
 ## ViewCHild
 
