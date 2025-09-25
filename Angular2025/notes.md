@@ -23,6 +23,21 @@
 - En los archivos the rutas, es posible especificar un componente para que se cargue de manera perezosa en vez de llamarlo directamente: `component: () => Component.then(m => m.routes)`, el .then se puede omitir si en el archivo del componete o rutas siendo importado, se incluye un export default.
 - El lazy loading hace que el componente solo se cargue cuando el usuario navegue a esa ruta.
 - Se pueden usar archivos de rutas internos, los cuales el app.routes.ts llamaría por medio de `loadChildren` de la misma manera que llamaría un documento, usando la importación de las rutas internas en vez del nombre del componente.
+- Se puede conseguir el contexto de las rutas definidas importando la clase de routes en el componente:
+```js
+routes = routes.map(route => ({
+  path: route.path,
+  title: `${route.title ?? 'Title'}`
+}))
+```
+- También se puede conseguir el contexto de la ruta actual y los eventos relacionadas a la misma:
+```js
+pageTitle$ = this.router.events.pipe(
+  // Filtramos por el evento que tiene la información final de la ruta actual
+  filter(event => event instanceof NavigationEnd),
+  map(...),
+)
+```
 
 ### Rutas dinámicas
 
@@ -89,6 +104,12 @@ debounceEffect = effect((onCleanup) => {
 - Angular ofrece llamados HTTP por medio de HttpClient, que se puede considerar como algo más poderoso al fetch normal.
 - Las peticiones Http retornan un observable, por ende es necesario suscribirse a la petición para recibir la respuesta.
 - HttpClient se inyecta en el servicio (`private http = inject(HttpClient)`) y se debe proveer en el app.config.ts (`provideHttpClient(withFetch())`)
+
+## Observables
+- Son una implementación que permiten manejar flujos de datos asíncronos de manera declarativa, y son parte de RxJS.
+- Son Lazy por defecto, lo que significa que no se ejecutan hasta que alguien se suscriba a ellos.
+- Pueden emitir varios valores a lo largo del tiempo y pueden ser cancelados.
+- Por convención, se suelen declarar con un "\$" al final de su nombre, e.g. `pageTitle$ = ...`
 
 ## RxJS
 
