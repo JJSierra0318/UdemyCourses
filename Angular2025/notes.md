@@ -200,3 +200,27 @@ inStorage: [0, [Validators.required, Validators.min(0)]],
 ```
 - Los errores generados por las validaciones pueden ser accedidos por medio de `myForm.controls.*property*.errors`
 - Sí se desea generar los errores en el momento en que se presione el botón de submit se puede usar la expresión `this.myForm.markAllAsTouched()`.
+- Se pueden realizar validaciones a nivel del formulario de la siguiente manera:
+```js
+myForm = this.fb.group({
+  name: ['', [Validators.required]],
+  ...
+}, {
+  validators: [
+    this.formUtils.isFieldOneEqualFieldTwo('password', 'password2')
+  ]
+})
+```
+
+### Validaciones Custom
+- Se pueden crear funciones de validación personalizadas, para esto se debe retornar un método que recibe el formulario y retorne nulo en caso que la validación sea existosa, o un objeto en el caso contrario:
+```js
+static isFieldOneEqualFieldTwo(field1: string, field2: string) {
+  return (formGroup: AbstractControl) => {
+    const field1Value = formGroup.get(field1)?.value
+    const field2Value = formGroup.get(field2)?.value
+
+    return field1Value === field2Value ? null : { passwordsNotEqual: true }
+  }
+}
+```
