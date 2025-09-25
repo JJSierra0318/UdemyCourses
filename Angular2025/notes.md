@@ -97,6 +97,7 @@ debounceEffect = effect((onCleanup) => {
 - `map()` es un operador que permite transformar los datos del observable.
 - `firstValueFrom()` Toma el primer valor de un observable y lo vuelve una promesa.
 - `switchMap()` Permite tranformar el observable un otro observable completamente diferente, (como el resultado de un http request).
+- `combineLatest()` Recibe un array de observable y combina todas las peticiones, retornando el resultado cuando todas pasen.
 
 ## ViewCHild
 
