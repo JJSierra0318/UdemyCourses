@@ -234,3 +234,7 @@ static notStrider(control: AbstractControl): ValidationErrors | null {
 }
 ```
 - En el caso de `isFieldOneEqualFieldTwo` se envían parámetros porque se devuelve una función interna. Esta función interna es a la que Angular le va enviar el AbstractControl por defecto.
+
+## Lifecycle Hooks
+- Muchos de los hooks del ciclo de vida de Angular se han dejado de usar en favor de otros métodos de control, como los resources para los ngOnInit o la limpieza con effects para ngOnDestroy.
+- Si bien los ciclos de vida se pueden usar sin necesidad de agregarles con un `implements`, pero hacerlo enfueza el uso del hook, que puede ser buena práctica para asegurarse que los componentes hacen uso de los ciclos de vida que se consideren necesarios.
