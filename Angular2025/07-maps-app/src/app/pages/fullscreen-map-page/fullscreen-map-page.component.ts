@@ -32,25 +32,23 @@ export class FullscreenMapPageComponent implements AfterViewInit {
   zoomEffect = effect(() => {
     if (!this.map()) return;
     this.map()?.zoomTo(this.zoom())
-  })
+  });
 
   coordinates = signal({
     lng: -74.5,
     lat: 40
-  })
+  });
   
   divElement = viewChild<ElementRef>('map');
-  map = signal<maplibregl.Map|null>(null)
+  map = signal<maplibregl.Map|null>(null);
 
   ngAfterViewInit() {
-    new Promise((resolve) => setTimeout(() => resolve, 80))
-    console.log('here');
+    new Promise((resolve) => setTimeout(() => resolve, 80));
     
     if (!this.divElement()?.nativeElement) return;
 
-
     const element = this.divElement()!.nativeElement;
-    const { lat, lng } = this.coordinates()
+    const { lat, lng } = this.coordinates();
 
     const map = new maplibregl.Map({
       container: element,
@@ -69,7 +67,7 @@ export class FullscreenMapPageComponent implements AfterViewInit {
 
     map.on('moveend', () => {
       const center = map.getCenter();
-      this.coordinates.set(center)
+      this.coordinates.set(center);
     })
 
     map.addControl(new maplibregl.FullscreenControl);
