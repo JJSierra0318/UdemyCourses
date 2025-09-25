@@ -211,6 +211,7 @@ myForm = this.fb.group({
   ]
 })
 ```
+- Las validaciones síncronas tienen prioridad sobre las validaciones asíncronas, si hay algún fallo en la primera no se va a realizar el proceso asíncrono.
 
 ### Validaciones Custom
 - Se pueden crear funciones de validación personalizadas, para esto se debe retornar un método que recibe el formulario y retorne nulo en caso que la validación sea existosa, o un objeto en el caso contrario:
@@ -224,3 +225,10 @@ static isFieldOneEqualFieldTwo(field1: string, field2: string) {
   }
 }
 ```
+- Angular envía por defecto un AbstractControl a sus validators, de forma que algunos validators pueden llamarse sin parámetros, (como el `Validators.required`), y al momento de crear una validación custom funciona igual, lo importante al momento de crearla es especificar que recibe un control: AbstractControl:
+```js
+static notStrider(control: AbstractControl): ValidationErrors | null {
+  return control.value === 'Strider' ? { invalidName: true } : null
+}
+```
+- En el caso de `isFieldOneEqualFieldTwo` se envían parámetros porque se devuelve una función interna. Esta función interna es a la que Angular le va enviar el AbstractControl por defecto.
