@@ -5,7 +5,7 @@
   <div class="flex flex-col gap-2">
 
     @for (marker of markers(); track marker.id) {
-    <div class="form-control" (click)="flyToMarker(marker.mapMarker.getLngLat())">
+    <div class="form-control" (click)="flyToMarker(marker.mapMarker.getLngLat())" (dblclick)="deleteMarker(marker)">
       <label class="label cursor-pointer text-wrap">
         <span class="label-text text-black text-xs">{{ marker.mapMarker.getLngLat() | json }}</span>
         <input type="radio" name="radio-10" class="radio" [style]="{backgroundColor: marker.mapMarker._color}"
