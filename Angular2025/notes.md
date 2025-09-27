@@ -23,6 +23,21 @@
 - En los archivos the rutas, es posible especificar un componente para que se cargue de manera perezosa en vez de llamarlo directamente: `component: () => Component.then(m => m.routes)`, el .then se puede omitir si en el archivo del componete o rutas siendo importado, se incluye un export default.
 - El lazy loading hace que el componente solo se cargue cuando el usuario navegue a esa ruta.
 - Se pueden usar archivos de rutas internos, los cuales el app.routes.ts llamaría por medio de `loadChildren` de la misma manera que llamaría un documento, usando la importación de las rutas internas en vez del nombre del componente.
+- Se puede conseguir el contexto de las rutas definidas importando la clase de routes en el componente:
+```js
+routes = routes.map(route => ({
+  path: route.path,
+  title: `${route.title ?? 'Title'}`
+}))
+```
+- También se puede conseguir el contexto de la ruta actual y los eventos relacionadas a la misma:
+```js
+pageTitle$ = this.router.events.pipe(
+  // Filtramos por el evento que tiene la información final de la ruta actual
+  filter(event => event instanceof NavigationEnd),
+  map(...),
+)
+```
 
 ### Rutas dinámicas
 
@@ -90,12 +105,20 @@ debounceEffect = effect((onCleanup) => {
 - Las peticiones Http retornan un observable, por ende es necesario suscribirse a la petición para recibir la respuesta.
 - HttpClient se inyecta en el servicio (`private http = inject(HttpClient)`) y se debe proveer en el app.config.ts (`provideHttpClient(withFetch())`)
 
+## Observables
+- Son una implementación que permiten manejar flujos de datos asíncronos de manera declarativa, y son parte de RxJS.
+- Son Lazy por defecto, lo que significa que no se ejecutan hasta que alguien se suscriba a ellos.
+- Pueden emitir varios valores a lo largo del tiempo y pueden ser cancelados.
+- Por convención, se suelen declarar con un "\$" al final de su nombre, e.g. `pageTitle$ = ...`
+
 ## RxJS
 
 - Por medio de `.pipe()` podemos "interceptar" y modificar lo que pasa a través de un observable, todas los operadores que definamos dentro del pipe se ejecutan antes de emitir el resultado.
 - `tap()` es un operador de RxJS que permite hacer efectos secundarios.
 - `map()` es un operador que permite transformar los datos del observable.
 - `firstValueFrom()` Toma el primer valor de un observable y lo vuelve una promesa.
+- `switchMap()` Permite tranformar el observable un otro observable completamente diferente, (como el resultado de un http request).
+- `combineLatest()` Recibe un array de observable y combina todas las peticiones, retornando el resultado cuando todas pasen.
 
 ## ViewCHild
 
@@ -200,3 +223,39 @@ inStorage: [0, [Validators.required, Validators.min(0)]],
 ```
 - Los errores generados por las validaciones pueden ser accedidos por medio de `myForm.controls.*property*.errors`
 - Sí se desea generar los errores en el momento en que se presione el botón de submit se puede usar la expresión `this.myForm.markAllAsTouched()`.
+- Se pueden realizar validaciones a nivel del formulario de la siguiente manera:
+```js
+myForm = this.fb.group({
+  name: ['', [Validators.required]],
+  ...
+}, {
+  validators: [
+    this.formUtils.isFieldOneEqualFieldTwo('password', 'password2')
+  ]
+})
+```
+- Las validaciones síncronas tienen prioridad sobre las validaciones asíncronas, si hay algún fallo en la primera no se va a realizar el proceso asíncrono.
+
+### Validaciones Custom
+- Se pueden crear funciones de validación personalizadas, para esto se debe retornar un método que recibe el formulario y retorne nulo en caso que la validación sea existosa, o un objeto en el caso contrario:
+```js
+static isFieldOneEqualFieldTwo(field1: string, field2: string) {
+  return (formGroup: AbstractControl) => {
+    const field1Value = formGroup.get(field1)?.value
+    const field2Value = formGroup.get(field2)?.value
+
+    return field1Value === field2Value ? null : { passwordsNotEqual: true }
+  }
+}
+```
+- Angular envía por defecto un AbstractControl a sus validators, de forma que algunos validators pueden llamarse sin parámetros, (como el `Validators.required`), y al momento de crear una validación custom funciona igual, lo importante al momento de crearla es especificar que recibe un control: AbstractControl:
+```js
+static notStrider(control: AbstractControl): ValidationErrors | null {
+  return control.value === 'Strider' ? { invalidName: true } : null
+}
+```
+- En el caso de `isFieldOneEqualFieldTwo` se envían parámetros porque se devuelve una función interna. Esta función interna es a la que Angular le va enviar el AbstractControl por defecto.
+
+## Lifecycle Hooks
+- Muchos de los hooks del ciclo de vida de Angular se han dejado de usar en favor de otros métodos de control, como los resources para los ngOnInit o la limpieza con effects para ngOnDestroy.
+- Si bien los ciclos de vida se pueden usar sin necesidad de agregarles con un `implements`, pero hacerlo enfueza el uso del hook, que puede ser buena práctica para asegurarse que los componentes hacen uso de los ciclos de vida que se consideren necesarios.
