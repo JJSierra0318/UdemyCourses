@@ -259,3 +259,36 @@ static notStrider(control: AbstractControl): ValidationErrors | null {
 ## Lifecycle Hooks
 - Muchos de los hooks del ciclo de vida de Angular se han dejado de usar en favor de otros métodos de control, como los resources para los ngOnInit o la limpieza con effects para ngOnDestroy.
 - Si bien los ciclos de vida se pueden usar sin necesidad de agregarles con un `implements`, pero hacerlo enfueza el uso del hook, que puede ser buena práctica para asegurarse que los componentes hacen uso de los ciclos de vida que se consideren necesarios.
+
+## Styles
+- Para instalar DaisyUI (que ya instala Tailwind por default) se puede user el siguiente comando:
+```sh
+npm install daisyui@latest tailwindcss@latest @tailwindcss/postcss@latest postcss@latest --force
+```
+- Luego se agrega un nuevo archivo `.postcssrc.json` con el siguiente contenido:
+```json
+{
+  "plugins": {
+    "@tailwindcss/postcss": {}
+  }
+}
+```
+- Finalmente, se añade la siguiente configuración al `styles.css`, el tema por default se puede cambiar o eliminar en caso de ser necesario:
+```css
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: night --default;
+ }
+```
+
+- Para añadir una fuente, se puede descargar el .ttf, agregarlo en un archivo de assets en la carpeta public y agregar la siguiente configuración al styles.css, donde, en caso de fallar va a usar el sans-serif como backup:
+```css
+@font-face {
+  font-family: "montserrat";
+  src: url("/assets/fonts/montserrat/Montserrat-Medium.ttf") format("truetype");
+}
+
+@theme {
+  --font-montserrat: "montserrat", sans-serif;
+}
+```
