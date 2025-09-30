@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ProductCardComponent } from '@products/components/product-card/product-card.component';
 import { ProductsService } from '@products/components/product-card/services/products.service';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { ProductsResponse } from '@products/components/product-card/interfaces/product.interface';
 
 @Component({
   selector: 'app-home-page',
@@ -14,7 +15,7 @@ export class HomePageComponent {
   productsResource = rxResource({
     request: () => ({}),
     loader: ({request}) => {
-      return this.productsService.getProducts();
+      return this.productsService.getProducts({});
     }, 
   });
 }
