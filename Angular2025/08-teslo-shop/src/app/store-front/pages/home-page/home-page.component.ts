@@ -3,10 +3,11 @@ import { ProductCardComponent } from '@products/components/product-card/product-
 import { ProductsService } from '@products/components/product-card/services/products.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ProductsResponse } from '@products/components/product-card/interfaces/product.interface';
+import { PaginationComponent } from '@shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-home-page',
-  imports: [ProductCardComponent],
+  imports: [ProductCardComponent, PaginationComponent],
   templateUrl: './home-page.component.html',
 })
 export class HomePageComponent {

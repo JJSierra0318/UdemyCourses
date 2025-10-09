@@ -38,6 +38,10 @@ pageTitle$ = this.router.events.pipe(
   map(...),
 )
 ```
+- Se pueden programar parámetros en las rutas por medio de botones o redirecciones con `[queryparams]`, la única condición es que debe de tener también un `[routerLink]` para usarlo, si no se desea redireccionar para usar query params se puede dejar un arreglo vacío para que "redireccione" a la misma página de la siguiente manera:
+```html
+<button [routerLink]="[]" [queryParams]="{ page: pageNumber }">Button</button>
+```
 
 ### Rutas dinámicas
 
