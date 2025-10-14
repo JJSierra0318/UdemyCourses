@@ -44,7 +44,18 @@ export class AuthService {
     this._user.set(null);
     this._token.set(null);
     this._authStatus.set('not-authenticated');
-    // localStorage.removeItem('token');
+    localStorage.removeItem('token');
+  }
+
+  register(fullName: string, email: string, password: string) {
+    return this.http.post<AuthResponse>(`${baseUrl}/auth/register`, {
+      fullName,
+      email,
+      password,
+    }).pipe(
+      map(res => this.handleAuthSuccess(res)),
+      catchError((error: any) => this.handleAuthError(error)),
+    )
   }
 
   checkStatus(): Observable<boolean> {
