@@ -307,3 +307,22 @@ npm install daisyui@latest tailwindcss@latest @tailwindcss/postcss@latest postcs
   --font-montserrat: "montserrat", sans-serif;
 }
 ```
+
+## Interceptors
+- Son un middleware que interceptan peticiones HTTP y modificarla o transformarla a necesidad. (e.g. agregar un Bearer Token).
+- Anteriormente se utilizaban por medio de decoradores pero ahora se recomiendo hacerlo a partir de funciones.
+- Primero se define una función que recibe cualquier petición HTTP y se encarga de que el flujo continue luego de interceptar:
+```js
+export function loggingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unkown>> {...}
+```
+- Dentro de la función manejamos el `next` por medio de un pipe a través del cuál se va a interceptar la petición:
+```js
+return next(req).pipe(
+  tap(...)
+)
+```
+- Para usar el interceptor solo hace falta agregarlo al provider del HttpClient:
+```js
+provideHttpClient(withInterceptors([loggingInterceptor])),
+```
+- Los interceptores no pueden modificar directamente un request o response, para eso se debe de crear un clon con `req.clone({...})`.
