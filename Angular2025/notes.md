@@ -133,6 +133,7 @@ debounceEffect = effect((onCleanup) => {
 - `firstValueFrom()` Toma el primer valor de un observable y lo vuelve una promesa.
 - `switchMap()` Permite tranformar el observable un otro observable completamente diferente, (como el resultado de un http request).
 - `combineLatest()` Recibe un array de observable y combina todas las peticiones, retornando el resultado cuando todas pasen.
+- `catchError()` Atrapa cualquier error que ocurra durante la ejecución.
 
 ## ViewCHild
 
