@@ -326,3 +326,28 @@ return next(req).pipe(
 provideHttpClient(withInterceptors([loggingInterceptor])),
 ```
 - Los interceptores no pueden modificar directamente un request o response, para eso se debe de crear un clon con `req.clone({...})`.
+
+## Guard
+- Sirven como middlewares que verifican si un usuario tiene o no permisos para acceder a ciertas funcionalidades o páginas.
+- Se basan en el ciclo de vida de navegación para funcionar, y el más común parar verificar acceso es el "can-match".
+```js
+export const NameGuard: CanMatchFn = (
+  route: Route,
+  segments: UrlSegment[]
+) => {
+  return true;
+}
+```
+- El guard se implementa en la ruta base en la cual se desea que se ejecuten los guards:
+```js
+export const routes: Routes = [
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.routes'),
+    canMatch: [
+      NotAuthenticatedGuard,
+    ]
+  },
+];
+```
+- Si cualquier guard en la lista retorna falso, la ruta no se va a mostrar.
