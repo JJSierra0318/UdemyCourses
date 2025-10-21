@@ -4,6 +4,7 @@ import { Product } from '@products/interfaces/product.interface';
 import { ProductCarouselComponent } from "@products/product-carousel/product-carousel.component";
 import { FormUtils } from '@utils/form-utils';
 import { FormErrorLabel } from "@shared/components/pagination/form-error-label/form-error-label";
+import { ProductsService } from '@products/services/products.service';
 
 @Component({
   selector: 'product-details',
@@ -12,6 +13,7 @@ import { FormErrorLabel } from "@shared/components/pagination/form-error-label/f
 })
 export class ProductDetails implements OnInit {
   product = input.required<Product>();
+  productsService = inject(ProductsService);
 
   sizes = ['XS','S','M','L','XL','XXL'];
 
@@ -23,7 +25,7 @@ export class ProductDetails implements OnInit {
     price: [0, [Validators.required, Validators.min(0)]],
     stock: [0, [Validators.required, Validators.min(0)]],
     sizes: [['']],
-    images: [[]],
+    images: [['']],
     tags: [''],
     gender: ['men', [Validators.required, Validators.pattern(/men|women|kid|unisex/)]],
   });
@@ -50,6 +52,20 @@ export class ProductDetails implements OnInit {
 
   onSubmit() {
     const isValid = this.productForm.valid;
-    console.log(this.productForm.value, { isValid });
+    this.productForm.markAllAsTouched();
+
+    if (!isValid) return;
+    const formValue = this.productForm.value;
+
+    const productLike: Partial<Product> = {
+      ...(formValue as any),
+      tags: formValue.tags?.toLowerCase().split(',').map(tag => tag.trim()) ?? [],
+    };
+
+    this.productsService.updateProduct(this.product().id, productLike).subscribe(
+      product => {
+        console.log('Producto actualizado');
+      }
+    )
   }
 }

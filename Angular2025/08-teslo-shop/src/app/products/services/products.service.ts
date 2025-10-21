@@ -19,7 +19,7 @@ export class ProductsService {
 
   private productsCache = new Map<string, ProductsResponse>();
   private productCache = new Map<string, Product>();
-  
+
   getProducts(options: Options): Observable<ProductsResponse> {
 
     const { limit = 10, offset = 0, gender = '' } = options;
@@ -48,9 +48,27 @@ export class ProductsService {
     }
 
     return this.http.get<Product>(`${baseUrl}/products/${idSlug}`)
-    .pipe(
-      delay(500),
-      tap((product) => this.productCache.set(idSlug, product)),
-    );
+      .pipe(
+        delay(500),
+        tap((product) => this.productCache.set(idSlug, product)),
+      );
+  }
+
+  updateProduct(id: string, productLike: Partial<Product>): Observable<Product> {
+    return this.http.patch<Product>(`${baseUrl}/products/${id}`, productLike).pipe(
+      tap(product => this.updateProductCache(product))
+    )
+  }
+
+  updateProductCache(product: Product) {
+    const id = product.id;
+
+    this.productCache.set(id, product);
+
+    this.productsCache.forEach(productResponse => {
+      productResponse.products = productResponse.products.map((currentProduct) => {
+        return currentProduct.id === id ? product : currentProduct
+      })
+    })
   }
 }
