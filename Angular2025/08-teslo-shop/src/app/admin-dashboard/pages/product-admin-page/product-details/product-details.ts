@@ -5,6 +5,7 @@ import { ProductCarouselComponent } from "@products/product-carousel/product-car
 import { FormUtils } from '@utils/form-utils';
 import { FormErrorLabel } from "@shared/components/pagination/form-error-label/form-error-label";
 import { ProductsService } from '@products/services/products.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'product-details',
@@ -14,8 +15,9 @@ import { ProductsService } from '@products/services/products.service';
 export class ProductDetails implements OnInit {
   product = input.required<Product>();
   productsService = inject(ProductsService);
+  router = inject(Router);
 
-  sizes = ['XS','S','M','L','XL','XXL'];
+  sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
   fb = inject(FormBuilder);
   productForm = this.fb.group({
@@ -46,7 +48,7 @@ export class ProductDetails implements OnInit {
     } else {
       currentSizes.push(size);
     }
-    
+
     this.productForm.patchValue({ sizes: currentSizes })
   }
 
@@ -62,10 +64,18 @@ export class ProductDetails implements OnInit {
       tags: formValue.tags?.toLowerCase().split(',').map(tag => tag.trim()) ?? [],
     };
 
-    this.productsService.updateProduct(this.product().id, productLike).subscribe(
-      product => {
-        console.log('Producto actualizado');
-      }
-    )
+    if (this.product().id === 'new') {
+      this.productsService.createProduct(productLike).subscribe(product => {
+        console.log('Producto creado');
+        this.router.navigate(['/admin/product', product.id])
+      })
+    } else {
+      this.productsService.updateProduct(this.product().id, productLike).subscribe(
+        product => {
+          console.log('Producto actualizado');
+        }
+      )
+    }
+
   }
 }

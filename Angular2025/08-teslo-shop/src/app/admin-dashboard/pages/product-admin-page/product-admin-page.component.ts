@@ -22,7 +22,7 @@ export class ProductAdminPageComponent {
   productResource = rxResource({
     request: () => ({ id: this.productId() }),
     loader: ({ request }) => {
-      return this.productsService.getProductByIdSlug(request.id);
+      return this.productsService.getProductById(request.id);
     },
   });
 
