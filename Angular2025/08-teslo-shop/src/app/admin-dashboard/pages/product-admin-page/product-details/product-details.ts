@@ -3,10 +3,11 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Product } from '@products/interfaces/product.interface';
 import { ProductCarouselComponent } from "@products/product-carousel/product-carousel.component";
 import { FormUtils } from '@utils/form-utils';
+import { FormErrorLabel } from "@shared/components/pagination/form-error-label/form-error-label";
 
 @Component({
   selector: 'product-details',
-  imports: [ProductCarouselComponent, ReactiveFormsModule],
+  imports: [ProductCarouselComponent, ReactiveFormsModule, FormErrorLabel],
   templateUrl: './product-details.html',
 })
 export class ProductDetails implements OnInit {
@@ -22,9 +23,9 @@ export class ProductDetails implements OnInit {
     price: [0, [Validators.required, Validators.min(0)]],
     stock: [0, [Validators.required, Validators.min(0)]],
     sizes: [['']],
-    images: [['']],
+    images: [[]],
     tags: [''],
-    gender: ['men', [Validators.required, Validators.pattern(/men|women|kid|unsex/)]],
+    gender: ['men', [Validators.required, Validators.pattern(/men|women|kid|unisex/)]],
   });
 
   ngOnInit(): void {
@@ -48,6 +49,7 @@ export class ProductDetails implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.productForm.value);
+    const isValid = this.productForm.valid;
+    console.log(this.productForm.value, { isValid });
   }
 }
