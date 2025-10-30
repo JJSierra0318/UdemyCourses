@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Product } from '@products/interfaces/product.interface';
 import { ProductCarouselComponent } from "@products/product-carousel/product-carousel.component";
@@ -6,6 +6,7 @@ import { FormUtils } from '@utils/form-utils';
 import { FormErrorLabel } from "@shared/components/pagination/form-error-label/form-error-label";
 import { ProductsService } from '@products/services/products.service';
 import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'product-details',
@@ -16,6 +17,8 @@ export class ProductDetails implements OnInit {
   product = input.required<Product>();
   productsService = inject(ProductsService);
   router = inject(Router);
+
+  wasSaved = signal(false);
 
   sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
@@ -52,7 +55,7 @@ export class ProductDetails implements OnInit {
     this.productForm.patchValue({ sizes: currentSizes })
   }
 
-  onSubmit() {
+  async onSubmit() {
     const isValid = this.productForm.valid;
     this.productForm.markAllAsTouched();
 
@@ -65,17 +68,21 @@ export class ProductDetails implements OnInit {
     };
 
     if (this.product().id === 'new') {
-      this.productsService.createProduct(productLike).subscribe(product => {
-        console.log('Producto creado');
-        this.router.navigate(['/admin/product', product.id])
-      })
+      const product = await firstValueFrom(
+        this.productsService.createProduct(productLike)
+      );
+
+      this.router.navigate(['/admin/product', product.id])
+
     } else {
-      this.productsService.updateProduct(this.product().id, productLike).subscribe(
-        product => {
-          console.log('Producto actualizado');
-        }
-      )
+      await firstValueFrom(
+        this.productsService.updateProduct(this.product().id, productLike)
+      );
     }
 
+    this.wasSaved.set(true);
+    setTimeout(() => {
+      this.wasSaved.set(false);
+    }, 3000);
   }
 }
