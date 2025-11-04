@@ -1,5 +1,7 @@
 
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+
+type Grade = 'A' | 'B' | 'F'
 
 @Component({
   selector: 'app-control-flow',
@@ -12,4 +14,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class ControlFlow { }
+export default class ControlFlow {
+
+  showContent = signal(false);
+  public grade = signal<Grade>('A');
+
+  toggleContent() {
+    this.showContent.update(value => !value);
+  }
+}
