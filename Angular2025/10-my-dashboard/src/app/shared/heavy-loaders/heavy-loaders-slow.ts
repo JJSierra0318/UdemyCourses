@@ -1,0 +1,11 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+@Component({
+  selector: 'app-heavy-loaders-slow',
+  imports: [],
+  template: `
+    <h1>Hola Mundo</h1>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class HeavyLoadersSlow { }
