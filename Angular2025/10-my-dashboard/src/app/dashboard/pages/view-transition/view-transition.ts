@@ -11,4 +11,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ViewTransition { }
+export default class ViewTransition { }

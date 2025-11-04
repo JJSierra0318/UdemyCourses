@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [RouterOutlet],
   templateUrl: './dashboard.html',
   styles: `
     :host {
@@ -11,4 +12,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Dashboard { }
+export default class Dashboard { }
