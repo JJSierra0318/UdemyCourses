@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Gender, Product, ProductsResponse } from '../interfaces/product.interface';
-import { delay, Observable, of, tap } from 'rxjs';
+import { delay, forkJoin, map, Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '@auth/interfaces/user.interface';
 
@@ -97,7 +97,7 @@ export class ProductsService {
       tap(product => this.updateProductCache(product)),
     )
   }
-  
+
   updateProductCache(product: Product) {
     const id = product.id;
 
@@ -108,5 +108,27 @@ export class ProductsService {
         return currentProduct.id === id ? product : currentProduct;
       })
     })
+  }
+
+  uploadImages(images?: FileList): Observable<string[]> {
+    if (!images) return of([]);
+
+    const uploadObservables = Array.from(images).map((imageFile) =>
+      this.uploadImage(imageFile)
+    );
+
+    return forkJoin(uploadObservables).pipe(
+      tap((imageNames) => console.log({ imageNames })),
+    );
+  }
+
+  uploadImage(imageFile: File): Observable<string> {
+    const formData = new FormData();
+    formData.append('file', imageFile);
+
+    return this.http.post<{ fileName: string }>(`${baseUrl}/files/product`, formData)
+      .pipe(
+        map(res => res.fileName)
+      )
   }
 }

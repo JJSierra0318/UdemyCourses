@@ -134,6 +134,7 @@ debounceEffect = effect((onCleanup) => {
 - `switchMap()` Permite tranformar el observable un otro observable completamente diferente, (como el resultado de un http request).
 - `combineLatest()` Recibe un array de observable y combina todas las peticiones, retornando el resultado cuando todas pasen.
 - `catchError()` Atrapa cualquier error que ocurra durante la ejecución.
+- `forkJoin()` Recibe un arreglo de Observables y espera a que todos emitan un valor.
 
 ## ViewCHild
 
