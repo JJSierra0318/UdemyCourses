@@ -8,4 +8,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeavyLoadersSlow { }
+export class HeavyLoadersSlow {
+  constructor() {
+    const start = Date.now()
+    while(Date.now() - start < 3000) {}
+    console.log("cargado")
+  }
+}
