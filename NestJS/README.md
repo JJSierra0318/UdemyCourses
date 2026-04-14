@@ -15,6 +15,13 @@ Useful information taken during the course "NestJS Zero to Hero - Modern TypeScr
 - Defined by the `@module` decorator.
 - It receives a list of properties.
 
+## Controllers
+
+- To access a Post request's Body:
+```js
+method(@Body('param') param: string) {}
+```
+
 ## Providers
 
 - Defined by the  `@Injectable` decorator in constructors.
