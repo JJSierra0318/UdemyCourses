@@ -19,7 +19,15 @@ Useful information taken during the course "NestJS Zero to Hero - Modern TypeScr
 
 - To access a Post request's Body:
 ```js
-method(@Body('param') param: string) {}
+method(@Body('item1') param: string) {}
+```
+- To access a Get/Patch request's Params:
+```js
+method(@Param('item1') param: string) {}
+```
+- To access a request's Query:
+```js
+method(@Query('item1') param: string) {}
 ```
 
 ## Providers
