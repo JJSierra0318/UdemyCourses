@@ -28,7 +28,7 @@ export class TasksController {
   }
 
   @Get('/:id')
-  getTaskById(@Param('id') id: string): taskModel.Task | undefined {
+  getTaskById(@Param('id') id: string): taskModel.Task {
     return this.tasksService.getTaskById(id);
   }
 
@@ -46,7 +46,7 @@ export class TasksController {
   updateTaskStatus(
     @Param('id') id: string,
     @Body('status') status: taskModel.TaskStatus,
-  ): taskModel.Task | undefined {
+  ): taskModel.Task {
     return this.tasksService.updateTaskStatus(id, status);
   }
 }
