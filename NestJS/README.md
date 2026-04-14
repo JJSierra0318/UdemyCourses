@@ -48,3 +48,53 @@ method(@Query('item1') param: string) {}
 - Any component can inject a provider.
 - Dependencies are defined as parameters in the constructor of the class.
 - NestJS handles the injection logic.
+
+## Pipes
+
+- Process argument of the route handler before it is called.
+- Performs data transformation or validation and can throw exceptions.
+- They can be async.
+- Defined by the `@Injectable()` decorator and implements the PipeTransform interface.
+
+### Handler-level pipes
+
+- Defined at handler level using @UsePipes() decorator.
+- Process all parameters for request.
+
+```js
+@Post()
+@UsePipes(SomePipe)
+createTask(
+  @Body('description') description
+) {
+  // ...
+}
+```
+
+### Parameter-level pipes
+
+- Defined at the parameter level.
+- Process specific parameter.
+
+```js
+@Post()
+createTask(
+  @Body('description', SomePipe) description
+) {
+  // ...
+}
+```
+
+### Global pipes
+
+- Defined at the application level.
+- Process every parameter of any incoming request.
+
+```js
+async function bootstrap() {
+  const app = await NestFactory.create(ApplicationModule);
+  app.useGlobalPipes(SomePipe);
+  await app.listen(3000);
+}
+bootstrap();
+```
