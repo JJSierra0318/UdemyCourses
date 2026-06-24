@@ -89,6 +89,7 @@ createTask(
 
 - Defined at the application level.
 - Process every parameter of any incoming request.
+- Validations set in DTOs are applied via global pipes.
 
 ```js
 async function bootstrap() {
